@@ -1,0 +1,32 @@
+.table {
+  border-top: 3px solid #47b2e4;
+
+  th, td {
+    padding: 1.5rem 3.5rem;
+  }
+
+  thead {
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #37517e;
+    text-transform: uppercase;
+  }
+}
+
+.pagination {
+  .page-link {
+    color: #37517e;
+
+    &:hover, &.active {
+      color: #47b2e4;
+      background-color: white;
+      border-color: #47b2e4;
+    }
+
+    &:focus {
+      box-shadow: none !important;
+      border-color: #47b2e4 !important;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+  web:
+    tty: true
+    stdin_open: true
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/rails6
+    ports:
+      - "3000:3000"
+    environment:
+      - WEBPACKER_DEV_SERVER_HOST=webpack
+    depends_on:
+      - db
+      - webpack
+  webpack:
+    build: .
+    command: bash -c "rm -f tmp/cache/webpacker/last-compilation-digest-development && ./bin/webpack-dev-server"
+    volumes:
+      - .:/rails6
+    ports:
+      - "3035:3035"
+    environment:
+      - NODE_ENV=development
+      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
